@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Face Detection App</title>
+    <link rel="stylesheet" href="wwwroot/css/style.css" />
+  </head>
+  <body>
+    <h1>Bienvenidos al reconocimiento facial de la Optica San Francisco</h1>
+    <div class="container">
+      <video id="video" height="500" width="500" autoplay muted></video>
+    </div>
+    
+    <div class="result-container">
+      <div id="emotion">Emocion</div>
+      <div id="gender">Genero</div>
+      <div id="age">Edad</div>
+      <div id="faceType">Tipo rostro</div>
+      <button id="redirectButton" class="redirect-button">Probador</button>
+    </div>
+ 
+
+    <div class="bottom-container">
+      <p class="copyright">© 2023   Optica San Francisco  @ Proyectos2.</p>
+    </div>
+    
+    <script src="js/face-api.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tf.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  background-image: url("images/sf.png");
+  width: calc(100% - 33px);
+}
+
+.container {
+  display: flex;
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: center;
+  
+  flex-direction: column;
+}
+header {
+  background-color: #428cfa;
+ 
+  text-align: center;
+  color: white;
+}
+
+footer {
+  flex-shrink: 0;
+  background-color: #355cb1;
+  padding: 20px;
+  text-align: center;
+  color: #ffffff;
+  margin-top: auto;
+}
+h1 {
+  text-align: center;
+  background: #428cfa;
+  color: #080808;
+  width: 100%;
+  margin: auto;
+  font-size: 2rem;
+  padding: 2rem;
+}
+
+input[type="file"] {
+  background-color: #fff;
+  padding: 10px;
+  border: none;
+  color: #333;
+}
+
+#canvas {
+  border: 1px solid #ccc;
+}
+
+p {
+  color: #333;
+}
+
+.bottom-container {
+  text-align: center;
+  margin-top: 3rem;
+  background-color: #76e95a;
+  padding: 50px 0 10px;
+}
+
+.bottom-container p {
+  color: #086161;
+  font-size: 1rem;
+  padding-left: 2rem;
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Probador virtual</title>
+    <meta charset='utf-8' />
+
+    <!-- Forbid resize on pinch with IOS Safari: -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    
+    <!-- INCLUDE MAIN SCRIPT: -->
+    <script src='dist/JeelizVTOWidget.js'></script>
+
+    <!-- For icons adjust fame or resize canvas -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+    <!-- Font for the header only: -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    
+    <!-- main stylesheet: -->
+    <link rel='stylesheet' href='css/JeelizVTOWidget.css' />
+
+    <script>
+      let _isResized = false;
+
+      function test_resizeCanvas() {
+        // halves the height:
+        let halfHeightPx = Math.round(window.innerHeight / 2).toString() + 'px';
+        
+        const domWidget = document.getElementById('JeelizVTOWidget');
+        domWidget.style.maxHeight = (_isResized) ? 'none' : halfHeightPx;
+
+        _isResized = !_isResized;
+      }
+
+
+      function get_initialSKU(){
+        // look if a SKU is provided as a URL parameters:
+        const queryString = window.location.search;
+        const URLParams = new URLSearchParams(queryString);
+        const sku = URLParams.get('sku') || 'rayban_round_or_marronClairDegrade';
+        console.log('Initial SKU =', sku);
+        return sku;
+      }
+
+
+      function get_isShadow(){
+        const queryString = window.location.search;
+        const URLParams = new URLSearchParams(queryString);
+        return URLParams.get('isHideShadow') ? false : true;
+      }
+
+
+      // entry point:
+      function main() {
+        JEELIZVTOWIDGET.start({
+          isShadow: get_isShadow(),
+          sku: get_initialSKU(),
+          searchImageMask: 'https://st2.depositphotos.com/42546960/45995/v/450/depositphotos_459950832-stock-illustration-sf-fs-letter-logo-design.jpg',
+          searchImageColor: 0xeeeeee,
+          callbackReady: function(){
+            console.log('INFO: Aplicativo listo :)');
+          },
+          onError: function(errorLabel){ 
+            alert('An error happened. errorLabel =' + errorLabel)
+            switch(errorLabel) {
+              case 'WEBCAM_UNAVAILABLE':
+                break;
+
+              case 'NOFILE':
+
+                break;
+              case 'WRONGFILEFORMAT': 
+                break;
+
+              case 'INVALID_SKU':   
+                break;
+              case 'FALLBACK_UNAVAILABLE':
+              
+                break;
+
+              case 'PLACEHOLDER_NULL_WIDTH':
+              case 'PLACEHOLDER_NULL_HEIGHT':
+                // Something is wrong with the placeholder
+                // (element whose id='JeelizVTOWidget')
+                break;
+                
+              case 'FATAL':
+              default:
+                // a bit error happens:(
+                break;
+            } // end switch
+          } // end onError()
+        }) 
+      } 
+
+
+      function load_modelBySKU(){
+        const sku = prompt('Please enter a glasses model SKU:', 'rayban_wayfarer_havane_marron');
+        if (sku){
+          JEELIZVTOWIDGET.load(sku);
+        }
+      }
+
+      function showModelInfo(modelName, price) {
+        alert("Modelo: " + modelName + "\nPrecio: " + price);
+      }
+
+      function bindModelButtons() {
+        const modelButtons = document.getElementsByClassName('modelButton');
+        for (let i = 0; i < modelButtons.length; i++) {
+          const button = modelButtons[i];
+          const modelName = button.getAttribute('data-model-name');
+          const price = button.getAttribute('data-price');
+          button.addEventListener('click', function() {
+            showModelInfo(modelName, price);
+            JEELIZVTOWIDGET.load(modelName);
+          });
+        }
+      }
+
+      // entry point:
+      window.addEventListener('DOMContentLoaded', function() {
+        main();
+        bindModelButtons();
+      });
+    </script>
+  </head>
+  <body>
+    <div class='content'>
+      <div class='header'>
+        <div class="headerTitle">
+          Probador San Francisco
+        </div>      
+      </div>
+
+
+
+      <!-- Please keep the same element IDs so that JEELIZVTOWIDGET can extract them from the DOM -->
+
+      <!-- BEGIN JEELIZVTOWIDGET -->
+      <!-- 
+        div with id='JeelizVTOWidget' is the placeholder
+        you need to size and position it according to where the VTO widget should be
+        if you resize it, the widget will be automatically resized
+      -->
+      <div id='JeelizVTOWidget'>
+        <!-- MAIN CANVAS: -->
+        <!-- 
+         canvas with id='JeelizVTOWidgetCanvas' is the canvas where the VTO widget will be rendered
+         it should have CSS attribute position: absolute so that it can be resized without
+         changing the total size of the placeholder
+        -->
+        <canvas id='JeelizVTOWidgetCanvas'></canvas>
+        
+        <div class='JeelizVTOWidgetControls JeelizVTOWidgetControlsTop'>
+          <!-- ADJUST BUTTON: -->
+          <button id='JeelizVTOWidgetAdjust'>
+            <div class="buttonIcon"><i class="fas fa-arrows-alt"></i></div>Ajustar montura
+          </button>
+
+          <!-- RESIZE WIDGET BUTTON: -->
+          <button id='buttonResizeCanvas' onclick='test_resizeCanvas();'>
+            <div class="buttonIcon"><i class="fas fa-sync-alt"></i></div>Restablecer probador
+          </button>
+        </div>
+
+        <!-- CHANGE MODEL BUTTONS: -->
+        <div class='JeelizVTOWidgetControls' id='JeelizVTOWidgetChangeModelContainer'>
+          <button class='modelButton' data-model-name='rayban_round_or_marronClairDegrade' data-price='100 soles'>Model 1</button>
+          <button class='modelButton' data-model-name='rayban_cockpit_or_vert_classique' data-price='150 soles'>Model 2</button>
+          <button class='modelButton' data-model-name='rayban_round_or_vert' data-price='200 soles'>Model 3</button>
+          <button class='modelButton' data-model-name='rayban_round_gun_grisDegrade' data-price='180 soles'>Model 4</button>
+          <button class='modelButton' data-model-name='rayban_aviator_gun_vert' data-price='120 soles'>Model 5</button>
+          <button class='modelButton' data-model-name='rayban_aviator_or_vertFlash' data-price='130 soles'>Model 6</button>
+          <button class='modelButton' data-model-name='rayban_aviator_or_rose' data-price='250 soles'>Model 7</button>
+          <button class='modelButton' data-model-name='rayban_round_or_orangeFlash' data-price='220 soles'>Model 8</button>
+          <button onclick="load_modelBySKU()">by SKU</button>
+        </div>
+        <div id='JeelizVTOWidgetAdjustNotice'>
+          Mueve la imagen de la montura a tu gusto
+          <button class='JeelizVTOWidgetBottomButton' id='JeelizVTOWidgetAdjustExit'>Salir</button>
+        </div>
+        <!-- END AJUST NOTICE -->
+
+        <!-- BEGIN LOADING WIDGET (not model) -->
+        <div id='JeelizVTOWidgetLoading'>
+           <div class='JeelizVTOWidgetLoadingText'>
+              Cargando...
+            </div>
+        </div>
+        <!-- END LOADING -->
+
+      </div>
+    </div>
+  </body>
+</html>
+ 
+ 

@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  background: #66a3cc;
+  width: calc(100% - 33px);
+}
+
+canvas {
+  
+  position: absolute;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.result-container > div {
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  margin: 5px 0;
+  color: white;
+  text-transform: capitalize;
+}
+
+#age {
+  background: #1e94be;
+}
+
+#emotion {
+  background: #8a1025;
+}
+
+#gender {
+  background: #62d8a5;
+}
+
+#faceType {
+  background: #cfb20d;
+}
+
+video {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  background: #428cfa;
+  color: white;
+  width: 100%;
+  margin: auto;
+  font-size: 2rem;
+  padding: 2rem;
+}
+
+.redirect-button {
+  background-color: #428cfa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.redirect-button:hover {
+  background-color: #1e6ebf;
+}
+
+.bottom-container {
+  text-align: center;
+  margin-top: 3rem;
+  background-color: #0b56f8;
+  padding: 50px 0 10px;
+}
+
+.bottom-container p {
+  color: #ffffff;
+  font-size: 1rem;
+  padding-left: 2rem;
+}
